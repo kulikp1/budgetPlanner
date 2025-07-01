@@ -1,103 +1,239 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
 .container {
   display: flex;
   height: 100vh;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Poppins', sans-serif;
+  background-image: url('/src/assets/back.png');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
 }
 
+.container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(10px);
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 0;
+}
+
+/* Left Side */
 .left {
   flex: 1;
-  background: url('/images/bg.jpg') center/cover no-repeat;
-  position: relative;
-}
-
-.overlay {
-  background: rgba(0, 0, 0, 0.4);
-  color: #fff;
-  height: 100%;
-  padding: 60px;
+  z-index: 1;
   display: flex;
-  flex-direction: column;
+  align-items: center;
   justify-content: center;
+  padding: 60px;
 }
 
-.overlay h1 {
-  font-size: 36px;
-  margin-bottom: 20px;
+.textBlock {
+  color: white;
+  max-width: 400px;
 }
 
-.overlay p {
-  font-size: 16px;
-  margin-bottom: 30px;
+.textBlock h1 {
+  font-size: 48px; /* Було 36px */
+  font-weight: 700;
+  margin-bottom: 24px;
+  line-height: 1.2;
 }
 
-.socials i {
-  font-size: 20px;
-  margin-right: 15px;
-  cursor: pointer;
+.textBlock p {
+  font-size: 20px; /* Було 16px */
+  font-weight: 300;
+  line-height: 1.8;
 }
 
+/* Right Side */
 .right {
   flex: 1;
-  background: linear-gradient(135deg, #360033, #0b8793);
-  color: white;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+/* Form Styling */
 .form {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.1);
   padding: 40px;
-  border-radius: 12px;
-  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  backdrop-filter: blur(16px);
   width: 100%;
   max-width: 400px;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  color: #fff;
 }
 
 .form h2 {
+  font-size: 26px;
   margin-bottom: 25px;
-  font-size: 28px;
+  text-align: center;
+  font-weight: 600;
 }
 
 .form input[type="email"],
 .form input[type="text"],
 .form input[type="password"] {
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid #ccc;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
   color: white;
-  padding: 10px 5px;
-  margin-bottom: 20px;
+  padding: 12px 14px;
+  margin-bottom: 18px;
+  font-size: 15px;
   outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.form input:focus {
+  border-color: #ff86c2;
 }
 
 .checkbox {
   font-size: 14px;
   margin-bottom: 20px;
+  display: flex;
+  align-items: center;
 }
 
 .checkbox input {
   margin-right: 8px;
 }
 
+.checkbox span a {
+  color: #ffd5ea;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.checkbox span a:hover {
+  color: #fff;
+}
+
 .submitBtn {
-  background-color: #ff0057;
+  background: linear-gradient(135deg, #ff3cac, #784ba0);
   border: none;
-  color: white;
   padding: 12px;
-  border-radius: 4px;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
   cursor: pointer;
-  font-weight: bold;
-  transition: background 0.3s ease;
+  transition: transform 0.2s ease;
 }
 
 .submitBtn:hover {
-  background-color: #e6004c;
+  transform: scale(1.03);
 }
 
 .loginText {
   margin-top: 20px;
   font-size: 14px;
+  text-align: center;
+  color: #eee;
+}
+
+.loginText a {
+  color: #ffb8d0;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.loginText a:hover {
+  color: white;
+}
+
+
+@media (max-width: 768px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Центрує контент по вертикалі */
+    background-position: center;
+    padding: 0 20px;
+    height: 100vh; /* Забезпечує повну висоту */
+    width: 100vw;  /* Забезпечує повну ширину */
+    box-sizing: border-box;
+    gap: 24px; /* 🔥 Контрольований відступ між лівим і правим блоком */
+  }
+
+  .left,
+  .right {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+  }
+
+  .textBlock {
+    text-align: center;
+    padding: 0 10px;
+    max-width: 90%;
+  }
+
+  .textBlock h1 {
+    font-size: 32px;
+  }
+
+  .textBlock p {
+    font-size: 16px;
+  }
+
+  .form {
+    padding: 30px 20px;
+    max-width: 90%;
+    width: 100%;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .form h2 {
+    font-size: 24px;
+    text-align: center;
+  }
+
+  .form input[type="email"],
+  .form input[type="text"],
+  .form input[type="password"] {
+    font-size: 14px;
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 16px;
+  }
+
+  .checkbox {
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  .checkbox input {
+    margin-right: 6px;
+  }
+
+  .submitBtn {
+    font-size: 15px;
+    padding: 12px;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .loginText {
+    font-size: 13px;
+    text-align: center;
+    margin-top: 16px;
+  }
 }

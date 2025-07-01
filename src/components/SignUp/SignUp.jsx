@@ -23,29 +23,19 @@ const SignUp = () => {
   return (
     <div className={styles.container}>
       <div className={styles.left}>
-        <div className={styles.overlay}>
-          <h1>Don't have an account?</h1>
-          <p>
-            Register to access all the features of our service. <br />
-            Manage your business in one place. It's free!
-          </p>
-          <div className={styles.socials}>
-            <i className="fab fa-vk"></i>
-            <i className="fab fa-facebook-f"></i>
-            <i className="fab fa-instagram"></i>
-            <i className="fab fa-twitter"></i>
-            <i className="fab fa-google"></i>
-          </div>
+        <div className={styles.textBlock}>
+          <h1>Start managing your budget smarter</h1>
+          <p>Track income, control expenses, and set financial goals — all in one app.</p>
         </div>
       </div>
 
       <div className={styles.right}>
         <form className={styles.form} onSubmit={handleSubmit}>
-          <h2>Sign up</h2>
+          <h2>Create Account</h2>
           <input
             type="email"
             name="email"
-            placeholder="E mail"
+            placeholder="Email Address"
             value={form.email}
             onChange={handleChange}
             required
@@ -53,7 +43,7 @@ const SignUp = () => {
           <input
             type="text"
             name="login"
-            placeholder="Login"
+            placeholder="Username"
             value={form.login}
             onChange={handleChange}
             required
@@ -72,11 +62,14 @@ const SignUp = () => {
               name="agree"
               checked={form.agree}
               onChange={handleChange}
+              required
             />
-            <span>I agree to all the statements in <a href="#">Terms of service</a></span>
+            <span>I agree with <a href="#">Terms of Service</a></span>
           </label>
-          <button type="submit" className={styles.submitBtn}>Sign up ➤</button>
-          <p className={styles.loginText}>Have an account? <a href="#">Sign in</a></p>
+          <button type="submit" className={styles.submitBtn}>Sign Up</button>
+          <p className={styles.loginText}>
+            Already have an account? <a href="#">Sign in</a>
+          </p>
         </form>
       </div>
     </div>
