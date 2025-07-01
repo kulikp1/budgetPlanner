@@ -1,0 +1,103 @@
+.container {
+  display: flex;
+  height: 100vh;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.left {
+  flex: 1;
+  background: url('/images/bg.jpg') center/cover no-repeat;
+  position: relative;
+}
+
+.overlay {
+  background: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  height: 100%;
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.overlay h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.overlay p {
+  font-size: 16px;
+  margin-bottom: 30px;
+}
+
+.socials i {
+  font-size: 20px;
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+.right {
+  flex: 1;
+  background: linear-gradient(135deg, #360033, #0b8793);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 40px;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form h2 {
+  margin-bottom: 25px;
+  font-size: 28px;
+}
+
+.form input[type="email"],
+.form input[type="text"],
+.form input[type="password"] {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  color: white;
+  padding: 10px 5px;
+  margin-bottom: 20px;
+  outline: none;
+}
+
+.checkbox {
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.checkbox input {
+  margin-right: 8px;
+}
+
+.submitBtn {
+  background-color: #ff0057;
+  border: none;
+  color: white;
+  padding: 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.submitBtn:hover {
+  background-color: #e6004c;
+}
+
+.loginText {
+  margin-top: 20px;
+  font-size: 14px;
+}
