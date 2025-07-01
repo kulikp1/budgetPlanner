@@ -152,12 +152,15 @@
 
 
 @media (max-width: 768px) {
-  .container {
+.container {
     flex-direction: column;
     background-position: center;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    
+    padding: 0 20px; /* Замість 20px */
+    min-height: 100dvh; /* сучасна одиниця, яка працює краще за 100vh */
+    height: auto; /* Додано для безпеки */
   }
 
   .left,
@@ -167,8 +170,7 @@
     margin: 0;
     justify-content: center;
     display: flex;
-    max-height: 370px;
-
+    max-height: none; /* змінено з 370px */
   }
 
   .textBlock {
