@@ -16,7 +16,6 @@ const SignUp = () => {
     e.preventDefault();
     if (form.agree) {
       console.log('Registering:', form);
-      // Реєстрація / API виклик тут
     }
   };
 
