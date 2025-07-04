@@ -1,0 +1,231 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+.container {
+  display: flex;
+  height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  background-image: url('/src/assets/back.png');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(10px);
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 0;
+}
+
+
+.left {
+  flex: 1;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px;
+}
+
+.textBlock {
+  color: white;
+  max-width: 400px;
+}
+
+.textBlock h1 {
+  font-size: 48px; 
+  font-weight: 700;
+  margin-bottom: 24px;
+  line-height: 1.2;
+}
+
+.textBlock p {
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.8;
+}
+
+
+.right {
+  flex: 1;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 40px;
+  border-radius: 16px;
+  backdrop-filter: blur(16px);
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  color: #fff;
+}
+
+.form h2 {
+  font-size: 26px;
+  margin-bottom: 25px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.form input[type="email"],
+.form input[type="text"],
+.form input[type="password"] {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: white;
+  padding: 12px 14px;
+  margin-bottom: 18px;
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.form input:focus {
+  border-color: #ff86c2;
+}
+
+.checkbox {
+  font-size: 14px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.checkbox input {
+  margin-right: 8px;
+}
+
+.checkbox span a {
+  color: #ffd5ea;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.checkbox span a:hover {
+  color: #fff;
+}
+
+.submitBtn {
+  background: linear-gradient(135deg, #ff3cac, #784ba0);
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.submitBtn:hover {
+  transform: scale(1.03);
+}
+
+.loginText {
+  margin-top: 20px;
+  font-size: 14px;
+  text-align: center;
+  color: #eee;
+}
+
+.loginText a {
+  color: #ffb8d0;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.loginText a:hover {
+  color: white;
+}
+
+
+@media (max-width: 768px) {
+.container {
+    flex-direction: column;
+    background-position: center;
+    align-items: center;
+    justify-content: center;
+    
+    padding: 0 20px; 
+    min-height: 100dvh; 
+    height: auto; 
+  }
+
+  .left,
+  .right {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    justify-content: center;
+    display: flex;
+    max-height: none; 
+  }
+
+  .textBlock {
+    text-align: center;
+    padding: 0 20px;
+    max-width: 90%;
+  }
+
+  .textBlock h1 {
+    font-size: 32px;
+  }
+
+  .textBlock p {
+    font-size: 16px;
+  }
+
+  .form {
+    padding: 30px 20px;
+    max-width: 90%;
+    width: 100%;
+    border-radius: 12px;
+    align-items: center;
+  }
+
+  .form h2 {
+    font-size: 24px;
+    text-align: center;
+  }
+
+  .form input[type="email"],
+  .form input[type="text"],
+  .form input[type="password"] {
+    font-size: 14px;
+    padding: 10px;
+    width: 100%;
+  }
+
+  .checkbox {
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+  }
+
+  .checkbox input {
+    margin-right: 6px;
+  }
+
+  .submitBtn {
+    font-size: 15px;
+    padding: 12px;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .loginText {
+    font-size: 13px;
+    text-align: center;
+  }
+}
