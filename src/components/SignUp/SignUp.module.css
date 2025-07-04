@@ -190,7 +190,7 @@
 }
 
 .input {
-  padding: 8px;
+  /* padding: 8px; */
   border: 1px solid #ccc;
   border-radius: 4px;
   outline: none;
@@ -199,16 +199,11 @@
 .invalid {
   border-color: red;
   background-color: #fff0f0;
+  
 }
 
 .error {
   color: red;
   font-size: 12px;
-  margin-top: 2px;
-}
-
-.linkText {
-  color: #3a86ff;
-  text-decoration: underline;
-  cursor: pointer;
+  margin-bottom: 18px;
 }
