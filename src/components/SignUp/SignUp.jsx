@@ -1,6 +1,7 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import { Link } from 'react-router-dom';
 import styles from './SignUp.module.css';
 
 const SignUp = () => {
@@ -33,28 +34,13 @@ const SignUp = () => {
           <Form className={styles.form}>
             <h2>Create Account</h2>
 
-            <Field
-              type="email"
-              name="email"
-              placeholder="Email Address"
-              className={styles.input}
-            />
+            <Field type="email" name="email" placeholder="Email Address" className={styles.input} />
             <ErrorMessage name="email" component="div" className={styles.error} />
 
-            <Field
-              type="text"
-              name="login"
-              placeholder="Username"
-              className={styles.input}
-            />
+            <Field type="text" name="login" placeholder="Username" className={styles.input} />
             <ErrorMessage name="login" component="div" className={styles.error} />
 
-            <Field
-              type="password"
-              name="password"
-              placeholder="Password"
-              className={styles.input}
-            />
+            <Field type="password" name="password" placeholder="Password" className={styles.input} />
             <ErrorMessage name="password" component="div" className={styles.error} />
 
             <label className={styles.checkbox}>
@@ -68,7 +54,7 @@ const SignUp = () => {
             </button>
 
             <p className={styles.loginText}>
-              Already have an account? <a href="#">Sign in</a>
+              Already have an account? <Link to="/signin">Sign in</Link>
             </p>
           </Form>
         )}
