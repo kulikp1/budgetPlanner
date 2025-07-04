@@ -178,3 +178,13 @@
   }
 }
 
+.linkText {
+  color: #ffd5ea;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+
+.linkText:hover {
+    color: #ec64a8;
+}

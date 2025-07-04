@@ -1,9 +1,9 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import styles from './SignUp.module.css';
+import styles from './SignIn.module.css';
 
-const SignIn = () => {
+const SignIn = ({ onSwitch }) => {
   const initialValues = {
     login: '',
     password: '',
@@ -19,41 +19,34 @@ const SignIn = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.right}>
-        <Formik
-          initialValues={initialValues}
-          validationSchema={validationSchema}
-          onSubmit={handleSubmit}
-        >
-          {({ isSubmitting }) => (
-            <Form className={styles.form}>
-              <h2>Sign In</h2>
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={handleSubmit}
+    >
+      {({ isSubmitting }) => (
+        <Form className={styles.form}>
+          <h2>Sign In</h2>
 
-              <Field
-                type="text"
-                name="login"
-                placeholder="Username or Email"
-                className={styles.input}
-              />
-              <ErrorMessage name="login" component="div" className={styles.error} />
+          <Field type="text" name="login" placeholder="Username or Email" className={styles.input} />
+          <ErrorMessage name="login" component="div" className={styles.error} />
 
-              <Field
-                type="password"
-                name="password"
-                placeholder="Password"
-                className={styles.input}
-              />
-              <ErrorMessage name="password" component="div" className={styles.error} />
+          <Field type="password" name="password" placeholder="Password" className={styles.input} />
+          <ErrorMessage name="password" component="div" className={styles.error} />
 
-              <button type="submit" className={styles.submitBtn} disabled={isSubmitting}>
-                Sign In
-              </button>
-            </Form>
-          )}
-        </Formik>
-      </div>
-    </div>
+          <button type="submit" className={styles.submitBtn} disabled={isSubmitting}>
+            Sign In
+          </button>
+
+          <p className={styles.loginText}>
+  Already have an account?{' '}
+  <span className={styles.linkText} onClick={onSwitch}>
+    Sign up
+  </span>
+</p>
+        </Form>
+      )}
+    </Formik>
   );
 };
 
