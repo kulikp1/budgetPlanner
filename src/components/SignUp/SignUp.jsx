@@ -137,7 +137,6 @@ const SignUp = ({ onSwitch }) => {
             )}
           </Field>
 
-          {/* Password */}
           <Field name="password">
             {({ field, meta, form }) => (
               <>
