@@ -190,7 +190,6 @@ const SignUp = ({ onSwitch }) => {
             <div className={styles.error}>{errors.agree}</div>
           )}
 
-          {/* Submit */}
           <button
             type="submit"
             className={styles.submitBtn}
