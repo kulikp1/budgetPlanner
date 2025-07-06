@@ -97,7 +97,6 @@ const SignUp = ({ onSwitch }) => {
         <Form className={styles.form}>
           <h2>Create Account</h2>
 
-          {/* Email */}
           <Field name="email">
             {({ field, meta, form }) => (
               <>
