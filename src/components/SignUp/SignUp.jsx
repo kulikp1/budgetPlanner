@@ -34,7 +34,7 @@ const SignUp = ({ onSwitch }) => {
             );
             return !data.some((u) => u.email === value);
           } catch (error) {
-            return true; // не блокуємо, якщо сервер недоступний
+            return true; 
           }
         }
       ),
