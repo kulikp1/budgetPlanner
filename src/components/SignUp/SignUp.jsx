@@ -179,7 +179,6 @@ const SignUp = ({ onSwitch }) => {
             )}
           </Field>
 
-          {/* Agree */}
           <label className={styles.checkbox}>
             <Field type="checkbox" name="agree" />
             <span>
