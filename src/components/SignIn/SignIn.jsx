@@ -141,7 +141,6 @@ function SignInForm({ onSwitch }) {
   );
 }
 
-// ✅ Кастомний хук для валідації login на наявність у БД
 function useRealTimeValidation({ values, setFieldError }) {
   useEffect(() => {
     const delayDebounce = setTimeout(async () => {
