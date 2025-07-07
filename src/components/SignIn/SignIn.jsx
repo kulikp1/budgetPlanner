@@ -2,12 +2,20 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
 import axios from 'axios';
 import bcrypt from 'bcryptjs';
-import * as Yup from 'yup';
 import styles from './SignIn.module.css';
 
 const SignIn = ({ onSwitch }) => {
+  return (
+    <SignInForm onSwitch={onSwitch} />
+  );
+};
+
+export default SignIn;
+
+function SignInForm({ onSwitch }) {
   const navigate = useNavigate();
 
   const initialValues = {
@@ -61,38 +69,10 @@ const SignIn = ({ onSwitch }) => {
         }
       }}
     >
-      {({
-        values,
-        errors,
-        touched,
-        isSubmitting,
-        setFieldTouched,
-        setFieldError,
-        setErrors,
-        validateForm,
-      }) => {
-        useEffect(() => {
-          const checkLogin = async () => {
-            if (values.login.length < 3) return;
+      {(formik) => {
+        useRealTimeValidation(formik); // ✅ тепер це — у верхньому рівні
 
-            try {
-              const { data } = await axios.get(
-                'https://68646b9e5b5d8d03397d2d1d.mockapi.io/user'
-              );
-              const foundUser = data.find(
-                (user) =>
-                  user.login === values.login || user.email === values.login
-              );
-              if (!foundUser) {
-                setFieldError('login', 'User not found');
-              }
-            } catch (err) {
-              console.error(err);
-            }
-          };
-
-          checkLogin();
-        }, [values.login]);
+        const { errors, touched, isSubmitting, setFieldTouched } = formik;
 
         return (
           <Form className={styles.form}>
@@ -112,6 +92,7 @@ const SignIn = ({ onSwitch }) => {
                       field.onChange(e);
                       setFieldTouched('login', true, false);
                     }}
+                    autoComplete="off"
                   />
                   {touched.login && errors.login && (
                     <div className={styles.error}>{errors.login}</div>
@@ -134,6 +115,7 @@ const SignIn = ({ onSwitch }) => {
                       field.onChange(e);
                       setFieldTouched('password', true, false);
                     }}
+                    autoComplete="off"
                   />
                   {touched.password && errors.password && (
                     <div className={styles.error}>{errors.password}</div>
@@ -142,11 +124,7 @@ const SignIn = ({ onSwitch }) => {
               )}
             </Field>
 
-            <button
-              type="submit"
-              className={styles.submitBtn}
-              disabled={isSubmitting}
-            >
+            <button type="submit" className={styles.submitBtn} disabled={isSubmitting}>
               Sign In
             </button>
 
@@ -161,6 +139,29 @@ const SignIn = ({ onSwitch }) => {
       }}
     </Formik>
   );
-};
+}
 
-export default SignIn;
+// ✅ Кастомний хук для валідації login на наявність у БД
+function useRealTimeValidation({ values, setFieldError }) {
+  useEffect(() => {
+    const delayDebounce = setTimeout(async () => {
+      if (!values.login || values.login.length < 3) return;
+
+      try {
+        const { data } = await axios.get(
+          'https://68646b9e5b5d8d03397d2d1d.mockapi.io/user'
+        );
+        const found = data.find(
+          (u) => u.login === values.login || u.email === values.login
+        );
+        if (!found) {
+          setFieldError('login', 'User not found');
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }, 500); // debounce 500ms
+
+    return () => clearTimeout(delayDebounce);
+  }, [values.login, setFieldError]);
+}
