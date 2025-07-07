@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "../../pages/HomePage/HomePage";
 import TrackerPage from "../../pages/TrackerPage/TrackerPage"
 
+
 function App() {
   return (
     <Router>

@@ -34,7 +34,7 @@ const SignUp = ({ onSwitch }) => {
             );
             return !data.some((u) => u.email === value);
           } catch (error) {
-            return true; 
+            return true;
           }
         }
       ),
@@ -75,13 +75,13 @@ const SignUp = ({ onSwitch }) => {
         }
       );
 
-      toast.success('Registration successful!');
+      toast.success('🎉 Registration successful! Redirecting...');
       localStorage.setItem('authUser', JSON.stringify(response.data));
       resetForm();
       navigate('/trackerPage');
     } catch (error) {
       console.error(error);
-      toast.error('Registration failed');
+      toast.error('Registration failed. Please try again.');
     }
   };
 
