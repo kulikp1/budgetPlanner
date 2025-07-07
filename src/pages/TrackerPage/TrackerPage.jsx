@@ -1,9 +1,12 @@
 import React from 'react';
+import Tracker from "../../components/Tracker/Tracker"
+import styles from './TrackerPage.module.css';
+
 
 const TrackerPage = () => {
   return (
-    <div style={{ padding: '2rem' }}>
-      <h1>Welcome to the Tracker Page</h1>
+    <div className={styles.container}>
+      <Tracker/>
     </div>
   );
 };

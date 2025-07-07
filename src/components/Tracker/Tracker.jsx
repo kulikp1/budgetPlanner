@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from './TrackerPage.module.css';
+import styles from './Tracker.module.css';
 import { v4 as uuidv4 } from 'uuid';
 
 const categories = {
