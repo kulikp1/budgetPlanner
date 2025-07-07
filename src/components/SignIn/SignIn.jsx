@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import bcrypt from 'bcryptjs';
@@ -38,7 +38,7 @@ const SignIn = ({ onSwitch }) => {
         return;
       }
 
-      toast.success('Login successful!');
+      toast.success('🎉 Login successful!');
       localStorage.setItem('authUser', JSON.stringify(foundUser));
       navigate('/trackerPage');
     } catch (error) {
@@ -52,28 +52,50 @@ const SignIn = ({ onSwitch }) => {
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
-      validateOnChange
-      validateOnBlur
+      validateOnChange={true}
+      validateOnBlur={false}
     >
-      {({ errors, touched, isSubmitting }) => (
+      {({isSubmitting }) => (
         <Form className={styles.form}>
           <h2>Sign In</h2>
 
-          <Field
-            type="text"
-            name="login"
-            placeholder="Username or Email"
-            className={`${styles.input} ${touched.login && errors.login ? styles.invalid : ''}`}
-          />
-          <ErrorMessage name="login" component="div" className={styles.error} />
+          <Field name="login">
+            {({ field, meta, form }) => (
+              <>
+                <input
+                  {...field}
+                  type="text"
+                  placeholder="Username or Email"
+                  className={`${styles.input} ${
+                    meta.touched && meta.error ? styles.invalid : ''
+                  }`}
+                  onInput={() => form.setFieldTouched('login', true, false)}
+                />
+                {meta.touched && meta.error && (
+                  <div className={styles.error}>{meta.error}</div>
+                )}
+              </>
+            )}
+          </Field>
 
-          <Field
-            type="password"
-            name="password"
-            placeholder="Password"
-            className={`${styles.input} ${touched.password && errors.password ? styles.invalid : ''}`}
-          />
-          <ErrorMessage name="password" component="div" className={styles.error} />
+          <Field name="password">
+            {({ field, meta, form }) => (
+              <>
+                <input
+                  {...field}
+                  type="password"
+                  placeholder="Password"
+                  className={`${styles.input} ${
+                    meta.touched && meta.error ? styles.invalid : ''
+                  }`}
+                  onInput={() => form.setFieldTouched('password', true, false)}
+                />
+                {meta.touched && meta.error && (
+                  <div className={styles.error}>{meta.error}</div>
+                )}
+              </>
+            )}
+          </Field>
 
           <button type="submit" className={styles.submitBtn} disabled={isSubmitting}>
             Sign In
