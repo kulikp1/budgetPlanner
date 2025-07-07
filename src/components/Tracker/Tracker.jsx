@@ -1,85 +1,118 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
+import { useFormik } from 'formik';
 import styles from './Tracker.module.css';
 
-const Tracker = () => {
-  const [amount, setAmount] = useState('');
-  const [category, setCategory] = useState('Їжа');
-  const [expenses, setExpenses] = useState([]);
+const initialValues = {
+  amount: '',
+  category: '',
+};
 
-  useEffect(() => {
-    fetchExpenses();
-  }, []);
+const incomeCategories = ['Salary', 'Bonus', 'Other'];
+const expenseCategories = ['Food', 'Transport', 'Entertainment', 'Other'];
 
-  const fetchExpenses = async () => {
-    try {
-      const response = await axios.get(
-        'https://68646b9e5b5d8d03397d2d1d.mockapi.io/data'
-      );
-      setExpenses(response.data);
-    } catch (error) {
-      console.error('Error fetching expenses:', error);
-    }
+export default function Tracker() {
+  const [type, setType] = useState('income'); 
+  const [records, setRecords] = useState([]);
+  const [editIndex, setEditIndex] = useState(null);
+
+  const formik = useFormik({
+    initialValues,
+    onSubmit: (values, { resetForm }) => {
+      const newRecord = {
+        ...values,
+        type,
+        date: new Date().toISOString().split('T')[0],
+        amount: Number(values.amount),
+      };
+
+      if (editIndex !== null) {
+        const updated = [...records];
+        updated[editIndex] = newRecord;
+        setRecords(updated);
+        setEditIndex(null);
+      } else {
+        setRecords([newRecord, ...records]);
+      }
+
+      resetForm();
+    },
+  });
+
+  const handleEdit = (index) => {
+    const record = records[index];
+    setType(record.type);
+    formik.setValues({ amount: record.amount, category: record.category });
+    setEditIndex(index);
   };
 
-  const handleAddExpense = async () => {
-    if (!amount || isNaN(amount)) return;
-
-    const newExpense = {
-      amount: parseFloat(amount),
-      category,
-      date: new Date().toISOString(),
-    };
-
-    try {
-      const response = await axios.post(
-        'https://68646b9e5b5d8d03397d2d1d.mockapi.io/data',
-        newExpense
-      );
-      setExpenses((prev) => [...prev, response.data]);
-      setAmount('');
-      setCategory('Їжа');
-    } catch (error) {
-      console.error('Error adding expense:', error);
-    }
+  const handleDelete = (index) => {
+    const updated = [...records];
+    updated.splice(index, 1);
+    setRecords(updated);
   };
+
+  const currentMonth = new Date().toISOString().slice(0, 7); // YYYY-MM
+
+  const filtered = records.filter(r => r.date.startsWith(currentMonth));
+
+  const income = filtered.filter(r => r.type === 'income').reduce((sum, r) => sum + r.amount, 0);
+  const expense = filtered.filter(r => r.type === 'expense').reduce((sum, r) => sum + r.amount, 0);
+  const balance = income - expense;
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.overlay} />
-      <div className={styles.container}>
-        <div className={styles.formBlock}>
-          <h2>Додати витрату</h2>
-          <input
-            type="number"
-            placeholder="Сума"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-          />
-          <select value={category} onChange={(e) => setCategory(e.target.value)}>
-            <option>Їжа</option>
-            <option>Транспорт</option>
-            <option>Розваги</option>
-            <option>Інше</option>
-          </select>
-          <button onClick={handleAddExpense}>Додати</button>
-        </div>
+    <div className={styles.container}>
+      <h1 className={styles.heading}>Welcome to Tracker</h1>
 
-        <div className={styles.expensesBlock}>
-          <h2>Витрати</h2>
-          <div className={styles.expensesList}>
-            {expenses.map((exp) => (
-              <div key={exp.id} className={styles.expenseCard}>
-                <p>💸 {exp.amount} грн</p>
-                <p>📌 {exp.category}</p>
-                <p>🕒 {new Date(exp.date).toLocaleString('uk-UA')}</p>
-              </div>
-            ))}
+      <div className={styles.toggle}>
+        <button className={type === 'income' ? styles.active : ''} onClick={() => setType('income')}>Income</button>
+        <button className={type === 'expense' ? styles.active : ''} onClick={() => setType('expense')}>Expense</button>
+      </div>
+
+      <form className={styles.form} onSubmit={formik.handleSubmit}>
+        <input
+          type="number"
+          name="amount"
+          placeholder="Amount"
+          value={formik.values.amount}
+          onChange={formik.handleChange}
+        />
+
+        <select
+          name="category"
+          value={formik.values.category}
+          onChange={formik.handleChange}
+        >
+          <option value="">Select Category</option>
+          {(type === 'income' ? incomeCategories : expenseCategories).map((cat) => (
+            <option key={cat} value={cat}>{cat}</option>
+          ))}
+        </select>
+
+        <button type="submit">{editIndex !== null ? 'Update' : 'Add'}</button>
+      </form>
+
+      <div className={styles.stats}>
+        <p>Income: <span className={styles.green}>${income}</span></p>
+        <p>Expense: <span className={styles.red}>${expense}</span></p>
+        <p>Balance: <span className={balance >= 0 ? styles.green : styles.red}>${balance}</span></p>
+      </div>
+
+      <div className={styles.list}>
+        <h3>Records (this month)</h3>
+        {filtered.length === 0 && <p className={styles.empty}>No records yet</p>}
+        {filtered.map((r, i) => (
+          <div key={i} className={styles.record}>
+            <div>
+              <strong>{r.category}</strong> - ${r.amount}
+              <span className={styles.date}>{r.date}</span>
+            </div>
+            <div className={styles.actions}>
+              <button onClick={() => handleEdit(i)}>Edit</button>
+              <button onClick={() => handleDelete(i)}>Delete</button>
+            </div>
           </div>
-        </div>
+        ))}
       </div>
     </div>
   );
-};
-
-export default Tracker;
+}

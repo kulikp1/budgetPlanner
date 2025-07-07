@@ -1,112 +1,123 @@
+/* Загальна обгортка на весь екран */
 .container {
-  position: relative; /* Додано для коректної роботи псевдоелемента ::before */
-  display: flex;
-  flex-direction: row;
-  gap: 30px;
-  padding: 40px;
-  background-image: url('/src/assets/back.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  color: #fff;
-  min-height: 100vh;
+  height: 100vh;
+  width: 100vw;
+  padding: 2rem 4rem;
   box-sizing: border-box;
-  z-index: 1;
-}
-
-.container::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  backdrop-filter: blur(10px);
-  background-color: rgba(0, 0, 0, 0.4);
-  z-index: -1; /* Позаду контенту */
-}
-
-.formBlock {
-  flex: 1;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 30px;
-  border-radius: 16px;
-  backdrop-filter: blur(10px);
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to right, #f5f7fa, #c3cfe2);
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  z-index: 1;
+  overflow: auto;
 }
 
-.formBlock h2 {
-  margin-bottom: 10px;
-  font-size: 24px;
+/* Заголовок */
+.heading {
+  font-size: 2rem;
   font-weight: 600;
-  text-align: center;
+  color: #2e3a59;
+  margin-bottom: 1rem;
 }
 
-.input {
-  padding: 12px;
+/* Перемикач доходи/витрати */
+.toggle {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.toggle button {
+  padding: 0.5rem 1.5rem;
+  border: none;
+  background: #e4e9f7;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #555;
+  transition: 0.2s ease;
+}
+
+.toggle .active {
+  background: #4b6cb7;
+  color: #fff;
+}
+
+/* Форма вводу */
+.form {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.form input,
+.form select {
+  padding: 0.6rem 1rem;
   border: 1px solid #ccc;
   border-radius: 8px;
-  font-size: 16px;
-  outline: none;
-  background-color: rgba(255, 255, 255, 0.1);
+  width: 200px;
+}
+
+.form button {
+  padding: 0.6rem 1.2rem;
+  background: #4b6cb7;
   color: white;
-}
-
-.input:focus {
-  border-color: #ff86c2;
-}
-
-.submitBtn {
-  background: linear-gradient(135deg, #ff3cac, #784ba0);
   border: none;
-  padding: 12px;
-  border-radius: 8px;
-  color: white;
-  font-weight: 600;
-  font-size: 16px;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-}
-
-.submitBtn:hover {
-  transform: scale(1.03);
-}
-
-.expenseList {
-  flex: 2;
-  display: flex;
-  overflow-x: auto;
-  gap: 16px;
-  padding: 10px;
-  align-items: flex-start;
-}
-
-.expenseCard {
-  min-width: 200px;
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-  padding: 16px;
-  color: white;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  flex-shrink: 0;
-}
-
-.amount {
-  font-size: 20px;
+  border-radius: 10px;
   font-weight: bold;
-  color: #ff6b81;
+  cursor: pointer;
 }
 
-.category {
-  font-size: 16px;
-  opacity: 0.9;
+/* Статистика */
+.stats {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+}
+
+.green {
+  color: #2ecc71;
+}
+
+.red {
+  color: #e74c3c;
+}
+
+/* Список записів */
+.list {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+  max-height: 40vh;
+  overflow-y: auto;
+}
+
+.record {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid #eee;
+  align-items: center;
 }
 
 .date {
-  font-size: 12px;
-  opacity: 0.6;
+  display: block;
+  font-size: 0.8rem;
+  color: #999;
+}
+
+.actions button {
+  background: none;
+  border: none;
+  color: #4b6cb7;
+  margin-left: 0.5rem;
+  cursor: pointer;
+}
+
+.empty {
+  text-align: center;
+  color: #999;
 }
