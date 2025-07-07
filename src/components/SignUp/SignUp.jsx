@@ -75,7 +75,7 @@ const SignUp = ({ onSwitch }) => {
         }
       );
 
-      toast.success('🎉 Registration successful! Redirecting...');
+      toast.success('Registration successful! ');
       localStorage.setItem('authUser', JSON.stringify(response.data));
       resetForm();
       navigate('/trackerPage');
