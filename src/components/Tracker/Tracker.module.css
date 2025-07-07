@@ -1,51 +1,60 @@
-.right {
-  flex: 1;
-  z-index: 1;
+.container {
+  position: relative; /* Додано для коректної роботи псевдоелемента ::before */
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: row;
+  gap: 30px;
+  padding: 40px;
+  background-image: url('/src/assets/back.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #fff;
+  min-height: 100vh;
+  box-sizing: border-box;
+  z-index: 1;
 }
 
-.form {
-  background: rgba(255, 255, 255, 0.1);
-  padding: 40px;
+.container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(10px);
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: -1; /* Позаду контенту */
+}
+
+.formBlock {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 30px;
   border-radius: 16px;
-  backdrop-filter: blur(16px);
-  width: 100%;
-  max-width: 400px;
+  backdrop-filter: blur(10px);
   display: flex;
   flex-direction: column;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-  color: #fff;
+  gap: 16px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  z-index: 1;
 }
 
-.form h2 {
-  font-size: 26px;
-  margin-bottom: 25px;
-  text-align: center;
+.formBlock h2 {
+  margin-bottom: 10px;
+  font-size: 24px;
   font-weight: 600;
+  text-align: center;
 }
 
-.form input[type="email"],
-.form input[type="text"],
-.form input[type="password"] {
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+.input {
+  padding: 12px;
+  border: 1px solid #ccc;
   border-radius: 8px;
-  color: white;
-  padding: 12px 14px;
-  margin-bottom: 18px;
-  font-size: 15px;
+  font-size: 16px;
   outline: none;
-  transition: border-color 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
 }
 
-.form input:focus {
+.input:focus {
   border-color: #ff86c2;
-}
-
-.checkbox input {
-  margin-right: 8px;
 }
 
 .submitBtn {
@@ -64,146 +73,40 @@
   transform: scale(1.03);
 }
 
-.checkbox {
-  font-size: 14px;
-  margin-bottom: 20px;
+.expenseList {
+  flex: 2;
   display: flex;
-  align-items: center;
+  overflow-x: auto;
+  gap: 16px;
+  padding: 10px;
+  align-items: flex-start;
 }
 
-.checkbox span a {
-  color: #ffd5ea;
-  text-decoration: underline;
-  transition: color 0.3s ease;
-}
-
-.checkbox span a:hover {
-  color: #fff;
-}
-
-
-.loginText {
-  margin-top: 20px;
-  font-size: 14px;
-  text-align: center;
-  color: #eee;
-}
-
-.loginText a {
-  color: #ffb8d0;
-  text-decoration: underline;
-  transition: color 0.3s ease;
-}
-
-.loginText a:hover {
+.expenseCard {
+  min-width: 200px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 16px;
   color: white;
-}
-@media (max-width: 768px) {
-.container {
-    flex-direction: column;
-    background-position: center;
-    align-items: center;
-    justify-content: center;
-    
-    padding: 0 20px; 
-    min-height: 100dvh; 
-    height: auto; 
-  }
-
-  .left,
-  .right {
-    width: 100%;
-    padding: 0;
-    margin: 0;
-    justify-content: center;
-    display: flex;
-    max-height: none; 
-  }
-
-  .textBlock {
-    text-align: center;
-    padding: 0 20px;
-    max-width: 90%;
-  }
-
-  .textBlock h1 {
-    font-size: 32px;
-  }
-
-  .textBlock p {
-    font-size: 16px;
-  }
-
-  .form {
-    padding: 30px 20px;
-    max-width: 90%;
-    width: 100%;
-    border-radius: 12px;
-    align-items: center;
-  }
-
-  .form h2 {
-    font-size: 24px;
-    text-align: center;
-  }
-
-  .form input[type="email"],
-  .form input[type="text"],
-  .form input[type="password"] {
-    font-size: 14px;
-    padding: 10px;
-    width: 100%;
-  }
-
-  .checkbox {
-    font-size: 13px;
-    display: flex;
-    align-items: center;
-  }
-
-  .checkbox input {
-    margin-right: 6px;
-  }
-
-  .submitBtn {
-    font-size: 15px;
-    padding: 12px;
-    width: 100%;
-    margin-top: 10px;
-  }
-
-  .loginText {
-    font-size: 13px;
-    text-align: center;
-  }
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
-.linkText {
-  color: #ffd5ea;
-  text-decoration: underline;
-  transition: color 0.3s ease;
-  cursor: pointer;
+.amount {
+  font-size: 20px;
+  font-weight: bold;
+  color: #ff6b81;
 }
 
-.linkText:hover {
-    color: #ec64a8;
+.category {
+  font-size: 16px;
+  opacity: 0.9;
 }
 
-.input {
-  /* padding: 8px; */
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  outline: none;
-}
-
-.invalid {
-  border-color: red;
-  background-color: #fff0f0;
-  
-}
-
-.error {
-  color: red;
+.date {
   font-size: 12px;
-  margin-bottom: 18px;
+  opacity: 0.6;
 }
