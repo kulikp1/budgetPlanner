@@ -18,7 +18,7 @@ const validationSchema = Yup.object({
           return !data.some((u) => u.email === value);
         } catch (error) {
             console.log(error)
-          return true; // fallback to allow in case of request error
+          return true; 
         }
       }
     ),
