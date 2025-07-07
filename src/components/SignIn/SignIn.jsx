@@ -55,7 +55,7 @@ function SignInWrapper({ onSwitch }) {
             return;
           }
 
-          toast.success('🎉 Login successful!');
+          toast.success('Login successful!');
           localStorage.setItem('authUser', JSON.stringify(foundUser));
           navigate('/trackerPage');
         } catch (error) {
