@@ -70,7 +70,7 @@ function SignInForm({ onSwitch }) {
       }}
     >
       {(formik) => {
-        useRealTimeValidation(formik); // ✅ тепер це — у верхньому рівні
+        useRealTimeValidation(formik); 
 
         const { errors, touched, isSubmitting, setFieldTouched } = formik;
 
