@@ -1,21 +1,21 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Formik, Form, Field } from 'formik';
-import * as Yup from 'yup';
 import axios from 'axios';
 import bcrypt from 'bcryptjs';
+
 import styles from './SignIn.module.css';
+import signInValidationSchema from '../../validation/SignInValidation';
+import useRealTimeValidation from '../../hooks/useRealTimeValidation';
 
 const SignIn = ({ onSwitch }) => {
-  return (
-    <SignInForm onSwitch={onSwitch} />
-  );
+  return <SignInWrapper onSwitch={onSwitch} />;
 };
 
 export default SignIn;
 
-function SignInForm({ onSwitch }) {
+function SignInWrapper({ onSwitch }) {
   const navigate = useNavigate();
 
   const initialValues = {
@@ -23,17 +23,10 @@ function SignInForm({ onSwitch }) {
     password: '',
   };
 
-  const validationSchema = Yup.object({
-    login: Yup.string()
-      .required('Login or email is required')
-      .min(3, 'Too short'),
-    password: Yup.string().required('Password is required'),
-  });
-
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={validationSchema}
+      validationSchema={signInValidationSchema}
       validateOnChange={true}
       validateOnBlur={false}
       onSubmit={async (values) => {
@@ -41,6 +34,7 @@ function SignInForm({ onSwitch }) {
           const { data } = await axios.get(
             'https://68646b9e5b5d8d03397d2d1d.mockapi.io/user'
           );
+
           const foundUser = data.find(
             (user) =>
               user.login === values.login || user.email === values.login
@@ -55,6 +49,7 @@ function SignInForm({ onSwitch }) {
             values.password,
             foundUser.password
           );
+
           if (!isMatch) {
             toast.error('Wrong password');
             return;
@@ -69,98 +64,80 @@ function SignInForm({ onSwitch }) {
         }
       }}
     >
-      {(formik) => {
-        useRealTimeValidation(formik); 
-
-        const { errors, touched, isSubmitting, setFieldTouched } = formik;
-
-        return (
-          <Form className={styles.form}>
-            <h2>Sign In</h2>
-
-            <Field name="login">
-              {({ field }) => (
-                <>
-                  <input
-                    {...field}
-                    type="text"
-                    placeholder="Username or Email"
-                    className={`${styles.input} ${
-                      touched.login && errors.login ? styles.invalid : ''
-                    }`}
-                    onInput={(e) => {
-                      field.onChange(e);
-                      setFieldTouched('login', true, false);
-                    }}
-                    autoComplete="off"
-                  />
-                  {touched.login && errors.login && (
-                    <div className={styles.error}>{errors.login}</div>
-                  )}
-                </>
-              )}
-            </Field>
-
-            <Field name="password">
-              {({ field }) => (
-                <>
-                  <input
-                    {...field}
-                    type="password"
-                    placeholder="Password"
-                    className={`${styles.input} ${
-                      touched.password && errors.password ? styles.invalid : ''
-                    }`}
-                    onInput={(e) => {
-                      field.onChange(e);
-                      setFieldTouched('password', true, false);
-                    }}
-                    autoComplete="off"
-                  />
-                  {touched.password && errors.password && (
-                    <div className={styles.error}>{errors.password}</div>
-                  )}
-                </>
-              )}
-            </Field>
-
-            <button type="submit" className={styles.submitBtn} disabled={isSubmitting}>
-              Sign In
-            </button>
-
-            <p className={styles.loginText}>
-              Don’t have an account?{' '}
-              <span className={styles.linkText} onClick={onSwitch}>
-                Sign up
-              </span>
-            </p>
-          </Form>
-        );
-      }}
+      {(formik) => <SignInForm onSwitch={onSwitch} formik={formik} />}
     </Formik>
   );
 }
 
-function useRealTimeValidation({ values, setFieldError }) {
-  useEffect(() => {
-    const delayDebounce = setTimeout(async () => {
-      if (!values.login || values.login.length < 3) return;
+function SignInForm({ onSwitch, formik }) {
+  const { values, setFieldError, touched, errors, isSubmitting, setFieldTouched } = formik;
 
-      try {
-        const { data } = await axios.get(
-          'https://68646b9e5b5d8d03397d2d1d.mockapi.io/user'
-        );
-        const found = data.find(
-          (u) => u.login === values.login || u.email === values.login
-        );
-        if (!found) {
-          setFieldError('login', 'User not found');
-        }
-      } catch (err) {
-        console.error(err);
-      }
-    }, 500); // debounce 500ms
+  useRealTimeValidation({ values, setFieldError }); // ✅ Correct usage of Hook
 
-    return () => clearTimeout(delayDebounce);
-  }, [values.login, setFieldError]);
+  return (
+    <Form className={styles.form}>
+      <h2>Sign In</h2>
+
+      <Field name="login">
+        {({ field }) => (
+          <>
+            <input
+              {...field}
+              type="text"
+              placeholder="Username or Email"
+              className={`${styles.input} ${
+                touched.login && errors.login ? styles.invalid : ''
+              }`}
+              onInput={(e) => {
+                field.onChange(e);
+                setFieldTouched('login', true, false);
+              }}
+              autoComplete="off"
+            />
+            {touched.login && errors.login && (
+              <div className={styles.error}>{errors.login}</div>
+            )}
+          </>
+        )}
+      </Field>
+
+      <Field name="password">
+        {({ field }) => (
+          <>
+            <input
+              {...field}
+              type="password"
+              placeholder="Password"
+              className={`${styles.input} ${
+                touched.password && errors.password ? styles.invalid : ''
+              }`}
+              onInput={(e) => {
+                field.onChange(e);
+                setFieldTouched('password', true, false);
+              }}
+              autoComplete="off"
+            />
+            {touched.password && errors.password && (
+              <div className={styles.error}>{errors.password}</div>
+            )}
+          </>
+        )}
+      </Field>
+
+      <button
+        type="submit"
+        className={styles.submitBtn}
+        disabled={isSubmitting}
+      >
+        Sign In
+      </button>
+
+      <p className={styles.loginText}>
+        Don’t have an account?{' '}
+        <span className={styles.linkText} onClick={onSwitch}>
+          Sign up
+        </span>
+      </p>
+    </Form>
+  );
 }
