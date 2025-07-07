@@ -1,7 +1,7 @@
 /* Загальна обгортка на весь екран */
 .container {
   height: 100vh;
-  width: 100vw;
+  width: 60vw;
   padding: 2rem 4rem;
   box-sizing: border-box;
   font-family: 'Segoe UI', sans-serif;
