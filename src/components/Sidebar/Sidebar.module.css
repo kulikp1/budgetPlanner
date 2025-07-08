@@ -1,7 +1,7 @@
 .sidebar {
   width: 240px;
-  background: linear-gradient(160deg, #4b6cb7, #182848);
-  color: #ffffff;
+  /* background: linear-gradient(160deg, #4b6cb7, #182848); */
+  color: linear-gradient(160deg, #4b6cb7, #182848);
   display: flex;
   flex-direction: column;
   padding: 2rem 1rem;
@@ -29,26 +29,27 @@
   padding: 0.75rem 1rem;
   border-radius: 12px;
   text-decoration: none;
-  color: #dbe4ff;
+  color: linear-gradient(160deg, #4b6cb7, #182848);
   font-weight: 500;
   transition: background 0.3s ease, color 0.2s;
+  font-size: 18px;
 }
 
 .sidebar nav a:hover,
 .sidebar nav a.active {
   background: rgba(255, 255, 255, 0.15);
-  color: #fff;
+  color: #4b6cb7;
 }
 
 .sidebar nav a i {
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
-
+/* linear-gradient(160deg, #4b6cb7, #182848) */
 /* User info at bottom */
 .sidebar .user {
   margin-top: auto;
   padding-top: 2rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-top: 1px solid #4b6cb7;
   text-align: center;
   font-size: 0.9rem;
   opacity: 0.8;
