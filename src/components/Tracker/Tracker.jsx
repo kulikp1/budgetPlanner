@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import styles from './Tracker.module.css';
+import {
+  FaHome,
+  FaChartBar,
+  FaMoneyBillWave,
+  FaCog,
+} from 'react-icons/fa';
 
 const initialValues = {
   amount: '',
@@ -11,7 +17,7 @@ const incomeCategories = ['Salary', 'Bonus', 'Other'];
 const expenseCategories = ['Food', 'Transport', 'Entertainment', 'Other'];
 
 export default function Tracker() {
-  const [type, setType] = useState('income'); 
+  const [type, setType] = useState('income');
   const [records, setRecords] = useState([]);
   const [editIndex, setEditIndex] = useState(null);
 
@@ -51,68 +57,105 @@ export default function Tracker() {
     setRecords(updated);
   };
 
-  const currentMonth = new Date().toISOString().slice(0, 7); // YYYY-MM
+  const currentMonth = new Date().toISOString().slice(0, 7);
 
-  const filtered = records.filter(r => r.date.startsWith(currentMonth));
+  const filtered = records.filter((r) => r.date.startsWith(currentMonth));
 
-  const income = filtered.filter(r => r.type === 'income').reduce((sum, r) => sum + r.amount, 0);
-  const expense = filtered.filter(r => r.type === 'expense').reduce((sum, r) => sum + r.amount, 0);
+  const income = filtered
+    .filter((r) => r.type === 'income')
+    .reduce((sum, r) => sum + r.amount, 0);
+  const expense = filtered
+    .filter((r) => r.type === 'expense')
+    .reduce((sum, r) => sum + r.amount, 0);
   const balance = income - expense;
 
   return (
-    <div className={styles.container}>
-      <h1 className={styles.heading}>Welcome to Tracker</h1>
+    <div className={styles.layout}>
+      <aside className={styles.sidebar}>
+        <div className={styles.logo}>💸 Tracker</div>
+        <nav className={styles.nav}>
+          <a href="#" className={styles.active}><FaHome /> Dashboard</a>
+          <a href="#"><FaChartBar /> Analytics</a>
+          <a href="#"><FaMoneyBillWave /> Transactions</a>
+          <a href="#"><FaCog /> Settings</a>
+        </nav>
+        <div className={styles.user}>
+          <small>Logged in as</small>
+          <br />
+          <strong>you@example.com</strong>
+        </div>
+      </aside>
 
-      <div className={styles.toggle}>
-        <button className={type === 'income' ? styles.active : ''} onClick={() => setType('income')}>Income</button>
-        <button className={type === 'expense' ? styles.active : ''} onClick={() => setType('expense')}>Expense</button>
-      </div>
+      <main className={styles.container}>
+        <h1 className={styles.heading}>Finance Tracker</h1>
 
-      <form className={styles.form} onSubmit={formik.handleSubmit}>
-        <input
-          type="number"
-          name="amount"
-          placeholder="Amount"
-          value={formik.values.amount}
-          onChange={formik.handleChange}
-        />
+        <div className={styles.toggle}>
+          <button
+            className={type === 'income' ? styles.active : ''}
+            onClick={() => setType('income')}
+          >
+            Income
+          </button>
+          <button
+            className={type === 'expense' ? styles.active : ''}
+            onClick={() => setType('expense')}
+          >
+            Expense
+          </button>
+        </div>
 
-        <select
-          name="category"
-          value={formik.values.category}
-          onChange={formik.handleChange}
-        >
-          <option value="">Select Category</option>
-          {(type === 'income' ? incomeCategories : expenseCategories).map((cat) => (
-            <option key={cat} value={cat}>{cat}</option>
-          ))}
-        </select>
+        <form className={styles.form} onSubmit={formik.handleSubmit}>
+          <input
+            type="number"
+            name="amount"
+            placeholder="Amount"
+            value={formik.values.amount}
+            onChange={formik.handleChange}
+          />
+          <select
+            name="category"
+            value={formik.values.category}
+            onChange={formik.handleChange}
+          >
+            <option value="">Select Category</option>
+            {(type === 'income' ? incomeCategories : expenseCategories).map((cat) => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
+            ))}
+          </select>
+          <button type="submit">{editIndex !== null ? 'Update' : 'Add'}</button>
+        </form>
 
-        <button type="submit">{editIndex !== null ? 'Update' : 'Add'}</button>
-      </form>
-
-      <div className={styles.stats}>
-        <p>Income: <span className={styles.green}>${income}</span></p>
-        <p>Expense: <span className={styles.red}>${expense}</span></p>
-        <p>Balance: <span className={balance >= 0 ? styles.green : styles.red}>${balance}</span></p>
-      </div>
-
-      <div className={styles.list}>
-        <h3>Records (this month)</h3>
-        {filtered.length === 0 && <p className={styles.empty}>No records yet</p>}
-        {filtered.map((r, i) => (
-          <div key={i} className={styles.record}>
-            <div>
-              <strong>{r.category}</strong> - ${r.amount}
-              <span className={styles.date}>{r.date}</span>
-            </div>
-            <div className={styles.actions}>
-              <button onClick={() => handleEdit(i)}>Edit</button>
-              <button onClick={() => handleDelete(i)}>Delete</button>
-            </div>
+        <div className={styles.stats}>
+          <div className={styles.card}>
+            <p>Income: <span className={styles.green}>${income}</span></p>
           </div>
-        ))}
-      </div>
+          <div className={styles.card}>
+            <p>Expense: <span className={styles.red}>${expense}</span></p>
+          </div>
+          <div className={styles.card}>
+            <p>Balance: <span className={balance >= 0 ? styles.green : styles.red}>${balance}</span></p>
+          </div>
+        </div>
+
+        <div className={styles.list}>
+          <h3>Records (this month)</h3>
+          {filtered.length === 0 && <p className={styles.empty}>No records yet</p>}
+          {filtered.map((r, i) => (
+            <div key={i} className={styles.record}>
+              <div>
+                <strong>{r.category}</strong> — ${r.amount}
+                <span className={styles.date}>{r.date}</span>
+              </div>
+              <div className={styles.actions}>
+                <button onClick={() => handleEdit(i)}>Edit</button>
+                <button onClick={() => handleDelete(i)}>Delete</button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </main>
     </div>
   );
 }
