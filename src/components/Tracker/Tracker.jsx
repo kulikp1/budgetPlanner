@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
+import Sidebar from '../Sidebar/Sidebar';
 import styles from './Tracker.module.css';
-import {
-  FaHome,
-  FaChartBar,
-  FaMoneyBillWave,
-  FaCog,
-} from 'react-icons/fa';
 
 const initialValues = {
   amount: '',
@@ -58,50 +53,20 @@ export default function Tracker() {
   };
 
   const currentMonth = new Date().toISOString().slice(0, 7);
-
   const filtered = records.filter((r) => r.date.startsWith(currentMonth));
-
-  const income = filtered
-    .filter((r) => r.type === 'income')
-    .reduce((sum, r) => sum + r.amount, 0);
-  const expense = filtered
-    .filter((r) => r.type === 'expense')
-    .reduce((sum, r) => sum + r.amount, 0);
+  const income = filtered.filter(r => r.type === 'income').reduce((sum, r) => sum + r.amount, 0);
+  const expense = filtered.filter(r => r.type === 'expense').reduce((sum, r) => sum + r.amount, 0);
   const balance = income - expense;
 
   return (
     <div className={styles.layout}>
-      <aside className={styles.sidebar}>
-        <div className={styles.logo}>💸 Tracker</div>
-        <nav className={styles.nav}>
-          <a href="#" className={styles.active}><FaHome /> Dashboard</a>
-          <a href="#"><FaChartBar /> Analytics</a>
-          <a href="#"><FaMoneyBillWave /> Transactions</a>
-          <a href="#"><FaCog /> Settings</a>
-        </nav>
-        <div className={styles.user}>
-          <small>Logged in as</small>
-          <br />
-          <strong>you@example.com</strong>
-        </div>
-      </aside>
-
+      <Sidebar />
       <main className={styles.container}>
         <h1 className={styles.heading}>Finance Tracker</h1>
 
         <div className={styles.toggle}>
-          <button
-            className={type === 'income' ? styles.active : ''}
-            onClick={() => setType('income')}
-          >
-            Income
-          </button>
-          <button
-            className={type === 'expense' ? styles.active : ''}
-            onClick={() => setType('expense')}
-          >
-            Expense
-          </button>
+          <button className={type === 'income' ? styles.active : ''} onClick={() => setType('income')}>Income</button>
+          <button className={type === 'expense' ? styles.active : ''} onClick={() => setType('expense')}>Expense</button>
         </div>
 
         <form className={styles.form} onSubmit={formik.handleSubmit}>
@@ -119,9 +84,7 @@ export default function Tracker() {
           >
             <option value="">Select Category</option>
             {(type === 'income' ? incomeCategories : expenseCategories).map((cat) => (
-              <option key={cat} value={cat}>
-                {cat}
-              </option>
+              <option key={cat} value={cat}>{cat}</option>
             ))}
           </select>
           <button type="submit">{editIndex !== null ? 'Update' : 'Add'}</button>
