@@ -6,6 +6,7 @@
   flex-direction: column;
   padding: 2rem 1rem;
   box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
 }
 
 .sidebar .logo {
@@ -37,7 +38,7 @@
 
 .sidebar nav a:hover,
 .sidebar nav a.active {
-  background: rgba(255, 255, 255, 0.15);
+  background: #e0e9f8;
   color: #4b6cb7;
 }
 
