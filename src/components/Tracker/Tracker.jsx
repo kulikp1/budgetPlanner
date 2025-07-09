@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { useFormik } from "formik";
 import Sidebar from "../Sidebar/Sidebar";
 import ModalForm from "../Modals/ModalForm/ModalForm";
+import SwitchPanel from "../SwitchPanel/SwitchPanel"; 
 import styles from "./Tracker.module.css";
 import {
   FaMoneyBillWave,
   FaShoppingCart,
   FaBalanceScale,
 } from "react-icons/fa";
-import { RxSwitch } from "react-icons/rx";
 
 const incomeCategories = ["Salary", "Bonus", "Other"];
 const expenseCategories = ["Food", "Transport", "Entertainment", "Other"];
@@ -75,11 +75,6 @@ export default function Tracker() {
     .reduce((sum, r) => sum + r.amount, 0);
   const balance = income - expense;
 
-  const switchLabel =
-    switchType === "income"
-      ? "Track your monthly income by adding salary, bonuses, or other sources."
-      : "Record your expenses to keep your finances under control.";
-
   return (
     <div className={styles.layout}>
       <Sidebar />
@@ -126,55 +121,15 @@ export default function Tracker() {
           </div>
         </div>
 
-        <div className={styles.chartPlaceholder}>
-          <div className={styles.switchBlock}>
-            <div className={styles.switchTop}>
-              <span
-                className={
-                  switchType === "income"
-                    ? styles.activeType
-                    : styles.inactiveType
-                }
-              >
-                Income
-              </span>
-
-              <button
-                onClick={() =>
-                  setSwitchType((prev) =>
-                    prev === "income" ? "expense" : "income"
-                  )
-                }
-                className={`${styles.switchToggle} ${
-                  switchType === "expense" ? styles.toggled : ""
-                }`}
-                aria-label="Toggle income/expense"
-              >
-                <RxSwitch size={26} />
-              </button>
-
-              <span
-                className={
-                  switchType === "expense"
-                    ? styles.activeType
-                    : styles.inactiveType
-                }
-              >
-                Expense
-              </span>
-            </div>
-            <p className={styles.switchText}>{switchLabel}</p>
-            <button
-              className={styles.bigAddButton}
-              onClick={() => openModalWithType(switchType)}
-            >
-              {switchType === "income" ? "➕ Add Income" : "➖ Add Expense"}
-            </button>
-          </div>
-        </div>
+        <SwitchPanel
+          switchType={switchType}
+          setSwitchType={setSwitchType}
+          onAdd={openModalWithType}
+        />
 
         <div className={styles.sidePanel}>
           <div className={styles.dualList}>
+            {/* Income Block */}
             <div className={styles.block}>
               <h3>Your Income</h3>
               {income === 0 ? (
@@ -198,6 +153,7 @@ export default function Tracker() {
               )}
             </div>
 
+            {/* Expense Block */}
             <div className={styles.block}>
               <h3>Your Expenses</h3>
               {expense === 0 ? (

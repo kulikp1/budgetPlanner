@@ -1,0 +1,91 @@
+.chartPlaceholder {
+    width: 580px;
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  border-radius: 16px;
+  background-color: #ffffff;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.05);
+}
+
+.switchBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.2rem;
+  padding: 1rem;
+  background: #f9fbfe;
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+  max-width: 480px;
+  width: 100%;
+}
+
+.switchTop {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #4b6cb7;
+}
+
+.switchToggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease, color 0.3s ease;
+  color: #9faecb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.switchToggle:hover {
+  transform: scale(1.2);
+}
+
+.switchToggle svg {
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.switchToggle.toggled svg {
+  transform: rotate(180deg);
+  color: #182848;
+}
+
+.activeType {
+  color: #182848;
+  font-weight: 700;
+}
+
+.inactiveType {
+  color: #9faecb;
+}
+
+.switchText {
+  font-size: 1rem;
+  color: #3c4a6e;
+  max-width: 400px;
+}
+
+.bigAddButton {
+  margin-top: 1rem;
+  padding: 0.8rem 1.6rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  background: linear-gradient(135deg, #4b6cb7, #182848);
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.bigAddButton:hover {
+  background: #3a57a1;
+  transform: scale(1.05);
+}
