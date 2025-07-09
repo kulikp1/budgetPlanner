@@ -117,14 +117,20 @@ export default function Tracker() {
             <p>Balance: <span className={balance >= 0 ? styles.green : styles.red}>${balance}</span></p>
           </div>
         </div>
-
-        <div className={styles.list}>
-          <h3>Records (this month)</h3>
-          {filtered.length === 0 && <p className={styles.empty}>No records yet</p>}
-          {filtered.map((r, i) => (
+<div className={styles.sidePanel}>
+  <div className={styles.dualList}>
+    {/* Income Block */}
+    <div className={styles.block}>
+      <h3>Your Income</h3>
+      {income === 0 ? (
+        <p className={styles.empty}>No income records</p>
+      ) : (
+        filtered
+          .filter((r) => r.type === 'income')
+          .map((r, i) => (
             <div key={i} className={styles.record}>
               <div>
-                <strong>{r.category}</strong> — ${r.amount}
+                <strong>{r.category}</strong> — <span className={styles.green}>+${r.amount}</span>
                 <span className={styles.date}>{r.date}</span>
               </div>
               <div className={styles.actions}>
@@ -132,8 +138,38 @@ export default function Tracker() {
                 <button onClick={() => handleDelete(i)}>Delete</button>
               </div>
             </div>
-          ))}
-        </div>
+          ))
+      )}
+    </div>
+
+    {/* Expense Block */}
+    <div className={styles.block}>
+      <h3>Your Expenses</h3>
+      {expense === 0 ? (
+        <p className={styles.empty}>No expense records</p>
+      ) : (
+        filtered
+          .filter((r) => r.type === 'expense')
+          .map((r, i) => (
+            <div key={i} className={styles.record}>
+              <div>
+                <strong>{r.category}</strong> — <span className={styles.red}>-${r.amount}</span>
+                <span className={styles.date}>{r.date}</span>
+              </div>
+              <div className={styles.actions}>
+                <button onClick={() => handleEdit(i)}>Edit</button>
+                <button onClick={() => handleDelete(i)}>Delete</button>
+              </div>
+            </div>
+          ))
+      )}
+    </div>
+  </div>
+</div>
+
+        
+
+
       </main>
     </div>
   );
