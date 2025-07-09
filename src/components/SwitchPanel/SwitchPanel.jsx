@@ -1,12 +1,15 @@
 import React from "react";
 import styles from "./SwitchPanel.module.css";
-import { RxSwitch } from "react-icons/rx";
 
 export default function SwitchPanel({ switchType, setSwitchType, onAdd }) {
   const switchLabel =
     switchType === "income"
       ? "Track your monthly income by adding salary, bonuses, or other sources."
       : "Record your expenses to keep your finances under control.";
+
+  const toggleType = () => {
+    setSwitchType((prev) => (prev === "income" ? "expense" : "income"));
+  };
 
   return (
     <div className={styles.chartPlaceholder}>
@@ -22,17 +25,13 @@ export default function SwitchPanel({ switchType, setSwitchType, onAdd }) {
             Income
           </span>
 
-          <button
-            onClick={() =>
-              setSwitchType((prev) => (prev === "income" ? "expense" : "income"))
-            }
-            className={`${styles.switchToggle} ${
-              switchType === "expense" ? styles.toggled : ""
-            }`}
-            aria-label="Toggle income/expense"
-          >
-            <RxSwitch size={26} />
-          </button>
+          <div className={styles.switchContainer} onClick={toggleType}>
+            <div
+              className={`${styles.switchSlider} ${
+                switchType === "expense" ? styles.expense : ""
+              }`}
+            ></div>
+          </div>
 
           <span
             className={

@@ -31,29 +31,31 @@
   color: #4b6cb7;
 }
 
-.switchToggle {
-  background: none;
-  border: none;
+/* Новий кастомний світчер */
+.switchContainer {
+  position: relative;
+  width: 48px;
+  height: 24px;
+  background-color: #d6e0f5;
+  border-radius: 12px;
   cursor: pointer;
-  transition: transform 0.3s ease, color 0.3s ease;
-  color: #9faecb;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
+  transition: background-color 0.3s ease;
+  border: 2px solid #182848;
 }
 
-.switchToggle:hover {
-  transform: scale(1.2);
+.switchSlider {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  background-color: #182848;
+  border-radius: 50%;
+  transition: left 0.3s ease;
 }
 
-.switchToggle svg {
-  transition: transform 0.3s ease, color 0.3s ease;
-}
-
-.switchToggle.toggled svg {
-  transform: rotate(180deg);
-  color: #182848;
+.switchSlider.expense {
+  left: calc(100% - 20px);
 }
 
 .activeType {
@@ -87,34 +89,6 @@
     transform: translateY(0);
   }
 }
-
-/* .bigAddButton {
-  margin-top: 1rem;
-  padding: 0.9rem 2rem;
-  font-size: 1rem;
-  font-weight: 600;
-  color: white;
-  background: linear-gradient(135deg, #4b6cb7, #182848);
-  border: none;
-  border-radius: 14px;
-  cursor: pointer;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
-} */
-
-/* .bigAddButton:hover {
-  background: #3a57a1;
-  transform: scale(1.05);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-}
-
-.icon {
-  font-size: 1.2rem;
-} */
-
 
 .flatAddButton {
   margin-top: 1rem;
