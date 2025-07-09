@@ -44,12 +44,16 @@ export default function SwitchPanel({ switchType, setSwitchType, onAdd }) {
             Expense
           </span>
         </div>
-        <p className={styles.switchText}>{switchLabel}</p>
+
+        <p key={switchType} className={`${styles.switchText} ${styles.fade}`}>
+          {switchLabel}
+        </p>
+
         <button
-          className={styles.bigAddButton}
+          className={styles.flatAddButton}
           onClick={() => onAdd(switchType)}
         >
-          {switchType === "income" ? "➕ Add Income" : "➖ Add Expense"}
+          {switchType === "income" ? "Add Income" : "Add Expense"}
         </button>
       </div>
     </div>

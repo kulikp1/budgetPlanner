@@ -1,5 +1,5 @@
 .chartPlaceholder {
-    width: 580px;
+  width: 580px;
   display: flex;
   justify-content: center;
   padding: 1rem;
@@ -69,23 +69,69 @@
   font-size: 1rem;
   color: #3c4a6e;
   max-width: 400px;
+  min-height: 48px;
+  transition: opacity 0.4s ease;
 }
 
-.bigAddButton {
+.fade {
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* .bigAddButton {
   margin-top: 1rem;
-  padding: 0.8rem 1.6rem;
+  padding: 0.9rem 2rem;
   font-size: 1rem;
-  font-weight: bold;
+  font-weight: 600;
   color: white;
   background: linear-gradient(135deg, #4b6cb7, #182848);
   border: none;
   border-radius: 14px;
   cursor: pointer;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
-  transition: background 0.3s ease, transform 0.2s ease;
-}
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+} */
 
-.bigAddButton:hover {
+/* .bigAddButton:hover {
   background: #3a57a1;
   transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.icon {
+  font-size: 1.2rem;
+} */
+
+
+.flatAddButton {
+  margin-top: 1rem;
+  padding: 0.8rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #243b55;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 12px rgba(36, 59, 85, 0.15);
+}
+
+.flatAddButton:hover {
+  background-color: #1c2d45;
+  transform: scale(1.04);
+  box-shadow: 0 6px 18px rgba(36, 59, 85, 0.25);
 }
