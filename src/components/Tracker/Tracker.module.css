@@ -97,6 +97,7 @@
   padding: 1.5rem 2rem;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
   transition: transform 0.2s ease;
+  width: 120px;
 }
 
 .card:hover {
@@ -172,4 +173,54 @@
   font-size: 1.8rem;
   color: #4b6cb7;
   margin-bottom: 0.4rem;
+}
+
+.card {
+  position: relative;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 1.5rem 2rem;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.addButton {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: #4b6cb7;
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  padding: 0.4rem;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.addButton:hover {
+  background: #3a57a1;
+  transform: scale(1.15);
+}
+
+.icon {
+  font-size: 1.8rem;
+  color: #4b6cb7;
+  margin-bottom: 0.4rem;
+}
+
+.green {
+  color: #2ecc71;
+}
+
+.red {
+  color: #e74c3c;
 }

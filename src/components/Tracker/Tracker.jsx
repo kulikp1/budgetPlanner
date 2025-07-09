@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import Sidebar from '../Sidebar/Sidebar';
+import ModalForm from '../Modals/ModalForm/ModalForm';
 import styles from './Tracker.module.css';
-import { FaMoneyBillWave, FaShoppingCart, FaBalanceScale } from 'react-icons/fa';
-
-const initialValues = {
-  amount: '',
-  category: '',
-};
+import { FaMoneyBillWave, FaShoppingCart, FaBalanceScale, FaPlus } from 'react-icons/fa';
 
 const incomeCategories = ['Salary', 'Bonus', 'Other'];
 const expenseCategories = ['Food', 'Transport', 'Entertainment', 'Other'];
@@ -16,9 +12,10 @@ export default function Tracker() {
   const [type, setType] = useState('income');
   const [records, setRecords] = useState([]);
   const [editIndex, setEditIndex] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const formik = useFormik({
-    initialValues,
+    initialValues: { amount: '', category: '' },
     onSubmit: (values, { resetForm }) => {
       const newRecord = {
         ...values,
@@ -37,6 +34,7 @@ export default function Tracker() {
       }
 
       resetForm();
+      setIsModalOpen(false);
     },
   });
 
@@ -45,12 +43,20 @@ export default function Tracker() {
     setType(record.type);
     formik.setValues({ amount: record.amount, category: record.category });
     setEditIndex(index);
+    setIsModalOpen(true);
   };
 
   const handleDelete = (index) => {
     const updated = [...records];
     updated.splice(index, 1);
     setRecords(updated);
+  };
+
+  const openModalWithType = (modalType) => {
+    setType(modalType);
+    formik.resetForm();
+    setEditIndex(null);
+    setIsModalOpen(true);
   };
 
   const currentMonth = new Date().toISOString().slice(0, 7);
@@ -65,41 +71,47 @@ export default function Tracker() {
       <main className={styles.container}>
         <h1 className={styles.heading}>Finance Tracker</h1>
 
-        <div className={styles.toggle}>
-          <button className={type === 'income' ? styles.active : ''} onClick={() => setType('income')}>Income</button>
-          <button className={type === 'expense' ? styles.active : ''} onClick={() => setType('expense')}>Expense</button>
-        </div>
-
-        <form className={styles.form} onSubmit={formik.handleSubmit}>
-          <input
-            type="number"
-            name="amount"
-            placeholder="Amount"
-            value={formik.values.amount}
-            onChange={formik.handleChange}
-          />
-          <select
-            name="category"
-            value={formik.values.category}
-            onChange={formik.handleChange}
-          >
-            <option value="">Select Category</option>
-            {(type === 'income' ? incomeCategories : expenseCategories).map((cat) => (
-              <option key={cat} value={cat}>{cat}</option>
-            ))}
-          </select>
-          <button type="submit">{editIndex !== null ? 'Update' : 'Add'}</button>
-        </form>
+        <ModalForm
+          isOpen={isModalOpen}
+          onClose={() => {
+            formik.resetForm();
+            setEditIndex(null);
+            setIsModalOpen(false);
+          }}
+          onSubmit={formik.handleSubmit}
+          values={formik.values}
+          onChange={formik.handleChange}
+          type={type}
+          categories={type === 'income' ? incomeCategories : expenseCategories}
+        />
 
         <div className={styles.stats}>
           <div className={styles.card}>
+            <button
+              className={styles.addButton}
+              onClick={() => openModalWithType('income')}
+              title="Add Income"
+              aria-label="Add Income"
+            >
+              <FaPlus />
+            </button>
             <FaMoneyBillWave className={styles.icon} />
             <p>Income: <span className={styles.green}>${income}</span></p>
           </div>
+
           <div className={styles.card}>
+            <button
+              className={styles.addButton}
+              onClick={() => openModalWithType('expense')}
+              title="Add Expense"
+              aria-label="Add Expense"
+            >
+              <FaPlus />
+            </button>
             <FaShoppingCart className={styles.icon} />
             <p>Expense: <span className={styles.red}>${expense}</span></p>
           </div>
+
           <div className={styles.card}>
             <FaBalanceScale className={styles.icon} />
             <p>Balance: <span className={balance >= 0 ? styles.green : styles.red}>${balance}</span></p>
