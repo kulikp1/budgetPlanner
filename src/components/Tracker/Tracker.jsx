@@ -4,6 +4,8 @@ import Sidebar from "../Sidebar/Sidebar";
 import ModalForm from "../Modals/ModalForm/ModalForm";
 import SwitchPanel from "../SwitchPanel/SwitchPanel"; 
 import styles from "./Tracker.module.css";
+import Header from "../Header/Header";
+
 import {
   FaMoneyBillWave,
   FaShoppingCart,
@@ -79,7 +81,7 @@ export default function Tracker() {
     <div className={styles.layout}>
       <Sidebar />
       <main className={styles.container}>
-        <h1 className={styles.heading}>Finance Tracker</h1>
+        <Header />
 
         <ModalForm
           isOpen={isModalOpen}
