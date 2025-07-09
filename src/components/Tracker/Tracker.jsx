@@ -5,6 +5,7 @@ import ModalForm from "../Modals/ModalForm/ModalForm";
 import SwitchPanel from "../SwitchPanel/SwitchPanel"; 
 import styles from "./Tracker.module.css";
 import Header from "../Header/Header";
+import StatsPanel from "../StatsPanel/StatsPanel";
 
 import {
   FaMoneyBillWave,
@@ -97,32 +98,7 @@ export default function Tracker() {
           categories={type === "income" ? incomeCategories : expenseCategories}
         />
 
-        <div className={styles.stats}>
-          <div className={styles.card}>
-            <FaMoneyBillWave className={styles.icon} />
-            <p>
-              Income: <span className={styles.green}>${income}</span>
-            </p>
-          </div>
-
-          <div className={styles.card}>
-            <FaShoppingCart className={styles.icon} />
-            <p>
-              Expense: <span className={styles.red}>${expense}</span>
-            </p>
-          </div>
-
-          <div className={styles.card}>
-            <FaBalanceScale className={styles.icon} />
-            <p>
-              Balance:{" "}
-              <span className={balance >= 0 ? styles.green : styles.red}>
-                ${balance}
-              </span>
-            </p>
-          </div>
-        </div>
-
+        <StatsPanel income={income} expense={expense} balance={balance} />
         <SwitchPanel
           switchType={switchType}
           setSwitchType={setSwitchType}
