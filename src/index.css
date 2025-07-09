@@ -9,7 +9,7 @@ a {
   color: inherit;
 }
 
-h1{
+h1,p,h2,h3,button{
   padding: 0;
   margin: 0;
 }
