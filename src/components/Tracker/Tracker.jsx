@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { useFormik } from "formik";
 import Sidebar from "../Sidebar/Sidebar";
 import ModalForm from "../Modals/ModalForm/ModalForm";
-import SwitchPanel from "../SwitchPanel/SwitchPanel"; 
+import SwitchPanel from "../SwitchPanel/SwitchPanel";
 import styles from "./Tracker.module.css";
 import Header from "../Header/Header";
 import StatsPanel from "../StatsPanel/StatsPanel";
+import RecordList from "../RecordList/RecordList";
 
 import {
   FaMoneyBillWave,
@@ -107,53 +108,20 @@ export default function Tracker() {
 
         <div className={styles.sidePanel}>
           <div className={styles.dualList}>
-            {/* Income Block */}
-            <div className={styles.block}>
-              <h3>Your Income</h3>
-              {income === 0 ? (
-                <p className={styles.empty}>No income records</p>
-              ) : (
-                filtered
-                  .filter((r) => r.type === "income")
-                  .map((r, i) => (
-                    <div key={i} className={styles.record}>
-                      <div>
-                        <strong>{r.category}</strong> —{" "}
-                        <span className={styles.green}>+${r.amount}</span>
-                        <span className={styles.date}>{r.date}</span>
-                      </div>
-                      <div className={styles.actions}>
-                        <button onClick={() => handleEdit(i)}>Edit</button>
-                        <button onClick={() => handleDelete(i)}>Delete</button>
-                      </div>
-                    </div>
-                  ))
-              )}
-            </div>
-
-            {/* Expense Block */}
-            <div className={styles.block}>
-              <h3>Your Expenses</h3>
-              {expense === 0 ? (
-                <p className={styles.empty}>No expense records</p>
-              ) : (
-                filtered
-                  .filter((r) => r.type === "expense")
-                  .map((r, i) => (
-                    <div key={i} className={styles.record}>
-                      <div>
-                        <strong>{r.category}</strong> —{" "}
-                        <span className={styles.red}>-${r.amount}</span>
-                        <span className={styles.date}>{r.date}</span>
-                      </div>
-                      <div className={styles.actions}>
-                        <button onClick={() => handleEdit(i)}>Edit</button>
-                        <button onClick={() => handleDelete(i)}>Delete</button>
-                      </div>
-                    </div>
-                  ))
-              )}
-            </div>
+            <RecordList
+              title="Your Income"
+              type="income"
+              records={filtered}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+            />
+            <RecordList
+              title="Your Expenses"
+              type="expense"
+              records={filtered}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+            />
           </div>
         </div>
       </main>
