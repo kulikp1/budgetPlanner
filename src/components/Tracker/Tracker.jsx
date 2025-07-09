@@ -8,12 +8,6 @@ import Header from "../Header/Header";
 import StatsPanel from "../StatsPanel/StatsPanel";
 import RecordList from "../RecordList/RecordList";
 
-import {
-  FaMoneyBillWave,
-  FaShoppingCart,
-  FaBalanceScale,
-} from "react-icons/fa";
-
 const incomeCategories = ["Salary", "Bonus", "Other"];
 const expenseCategories = ["Food", "Transport", "Entertainment", "Other"];
 
