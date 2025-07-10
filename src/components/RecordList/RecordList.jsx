@@ -1,4 +1,3 @@
-// src/components/RecordList/RecordList.jsx
 import React from "react";
 import styles from "./RecordList.module.css";
 
