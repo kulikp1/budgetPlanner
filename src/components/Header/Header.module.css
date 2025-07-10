@@ -2,7 +2,7 @@
   width: 580px;
   display: flex;
   justify-content: space-between;
-  align-items: flex-end; /* вирівнювання Welcome to Peymen з іконками */
+  align-items: flex-end; 
   margin-bottom: 2rem;
 }
 
