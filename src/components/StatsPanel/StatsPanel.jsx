@@ -1,4 +1,3 @@
-// src/components/StatsPanel/StatsPanel.jsx
 import React from "react";
 import styles from "./StatsPanel.module.css";
 import {
